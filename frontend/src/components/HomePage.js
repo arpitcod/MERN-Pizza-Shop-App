@@ -16,18 +16,25 @@ const HomePage = () => {
   return (
     <>
       <div className=" container border border-2 border-danger ">
-        <div className="row row-cols-4 border border-2 border-dark ">
+        <div className="row border border-2 border-dark ">
+
+          {/* <div className="col-md-6 col-lg-3"> */}
           {
-              loading ? (<h1>Loading...</h1>)
+              loading ? (
+                <div class="spinner-border text-danger text-center " role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              )
               : (
                     pizzas?.map((pizza,index) => (
-                    <div className="col border border-2 border-success  ">
+                    <div className="col-md-6 col-lg-3 border border-2 border-success  ">
                       <PizzaInfo pizza={pizza} index={index} />
                     </div>
                   ))
 
               )
-        }
+          }
+        {/* </div> */}
         </div>
         </div>
     </>

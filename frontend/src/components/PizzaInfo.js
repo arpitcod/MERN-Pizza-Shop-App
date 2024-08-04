@@ -1,16 +1,27 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartItems } from "../reedux/cartSlice";
 // import { Link } from "react-router-dom";
 
 const PizzaInfo = ({ pizza ,index}) => {
   const [quantity, setQuantity] = useState(1);
   const [varient, setVarient] = useState("small");
   const [showModel, setShowModel] = useState(false);
-
+  const dispatch = useDispatch();
   const handleShowModel = () => setShowModel(true);
   const handleCloseModel = () => setShowModel(false);
+  const { pizzas} = useSelector((state) => state.pizza);
+  
   // console.log(pizza)
   // console.log("index",index)
-
+  const handleCartBtn = () =>{
+      localStorage.setItem("cartItems",pizza)
+       dispatch(setCartItems(pizza));
+      console.log("setcart",setCartItems(pizza))
+      // console.log("setCart",setCartItems(setCart))
+      // console.log("setCart2",setCart)
+      // console.log("setcart",setCartItems)
+  }
   return (
     <>
       <div
@@ -67,7 +78,7 @@ const PizzaInfo = ({ pizza ,index}) => {
               <h5>Rs.{pizza?.prices[0][varient] * quantity}</h5>
             </div>
             <div className="col">
-              <button type="button" class="btn btn-danger">
+              <button type="button" class="btn btn-danger" onClick={handleCartBtn}>
                 Add To Cart
               </button>
             </div>

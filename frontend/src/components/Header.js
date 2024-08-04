@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 // import { FaPizzaSlice } from "react-icons/fa6";
 // import { CiShop } from "react-icons/ci";
 import {NavLink} from 'react-router-dom';
 const Header = () => {
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -54,7 +56,7 @@ const Header = () => {
               </li>
               <li className="nav-item active ">
                 <NavLink className="nav-link" aria-current="page" to="/cart">
-                   Cart
+                   Cart {cartItems?.length }
                 </NavLink>
               </li>
               </ul>
