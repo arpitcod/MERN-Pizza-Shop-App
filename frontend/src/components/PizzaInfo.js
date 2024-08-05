@@ -6,22 +6,30 @@ import { setCartItems } from "../reedux/cartSlice";
 const PizzaInfo = ({ pizza ,index}) => {
   const [quantity, setQuantity] = useState(1);
   const [varient, setVarient] = useState("small");
+
+  // model ....
   const [showModel, setShowModel] = useState(false);
   const dispatch = useDispatch();
+
+  //model hide and show 
   const handleShowModel = () => setShowModel(true);
   const handleCloseModel = () => setShowModel(false);
+
+  // redux selector ...........
   const { pizzas} = useSelector((state) => state.pizza);
+  const {cartItems} = useSelector( (state) => state.cart)
   
-  // console.log(pizza)
-  // console.log("index",index)
+
   const handleCartBtn = () =>{
-      localStorage.setItem("cartItems",pizza)
-       dispatch(setCartItems(pizza));
+      localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,pizza])))
+       dispatch(setCartItems([...cartItems,pizza]));
       console.log("setcart",setCartItems(pizza))
       // console.log("setCart",setCartItems(setCart))
       // console.log("setCart2",setCart)
       // console.log("setcart",setCartItems)
   }
+
+  
   return (
     <>
       <div
@@ -34,7 +42,7 @@ const PizzaInfo = ({ pizza ,index}) => {
         // data-bs-target="#exampleModal"
       >
         {/* <div className="pizza_img" onClick={handleShowModel} > */}
-        <div className="pizza_img" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={handleShowModel} >
+        <div className="pizza_img" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>handleShowModel(pizza?._id)} >
           <img
             src={pizza?.image}
             className="card-img-top"
@@ -78,7 +86,7 @@ const PizzaInfo = ({ pizza ,index}) => {
               <h5>Rs.{pizza?.prices[0][varient] * quantity}</h5>
             </div>
             <div className="col">
-              <button type="button" class="btn btn-danger" onClick={handleCartBtn}>
+              <button type="button" class="btn btn-danger" onClick={() => handleCartBtn()}>
                 Add To Cart
               </button>
             </div>
