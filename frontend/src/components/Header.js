@@ -5,6 +5,8 @@ import { useSelector } from "react-redux";
 import {NavLink} from 'react-router-dom';
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
+  console.log('hiii',JSON.parse(JSON.stringify(localStorage.getItem('cartItems'))));
+  const cartItemLen = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems'))?.payload?.length : 0
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,7 +58,7 @@ const Header = () => {
               </li>
               <li className="nav-item active ">
                 <NavLink className="nav-link" aria-current="page" to="/cart">
-                   Cart {cartItems?.length }
+                   Cart {cartItemLen }
                 </NavLink>
               </li>
               </ul>

@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { setCartItems } from "../reedux/cartSlice";
 
 const CartPage = () => {
   const { cartItems } = useSelector((state) => state.cart);
 
-  // const cartItem = localStorage.getItem("cartItems" ? );
+  // const [cartItm ,setCartItm] = useState([]);
 
+
+  const cartItem = localStorage.getItem("cartItems") ? setCartItems(JSON.parse(localStorage.getItem("cartItems"))) : [];
+console.log("cartitem",cartItem)
+
+// const cartItem = localStorage.getItem("cartItems")
   
-  console.log("cartitm", cartItem);
   console.log("cartitms", cartItems);
 //   console.log("cartitms", cartItems[0].prices);
   return (
     <>
           <div className="card mb-3 ">
-      {cartItem?.map((item, index) => (
+      {cartItem?.payload?.payload?.map((item, index) => (
         <>
-            <div className="row g-0">
+            <div className="row g-0" key={index}>
               <div className="col-md-4">
                 <img
                   src={item?.image}

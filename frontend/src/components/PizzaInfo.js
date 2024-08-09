@@ -4,6 +4,7 @@ import { setCartItems } from "../reedux/cartSlice";
 // import { Link } from "react-router-dom";
 
 const PizzaInfo = ({ pizza ,index}) => {
+// const PizzaInfo = () => {
   const [quantity, setQuantity] = useState(1);
   const [varient, setVarient] = useState("small");
 
@@ -21,6 +22,7 @@ const PizzaInfo = ({ pizza ,index}) => {
   
 
   const handleCartBtn = () =>{
+      // localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,pizza])))
       localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,pizza])))
        dispatch(setCartItems([...cartItems,pizza]));
       console.log("setcart",setCartItems(pizza))
@@ -42,6 +44,14 @@ const PizzaInfo = ({ pizza ,index}) => {
         // data-bs-target="#exampleModal"
       >
         {/* <div className="pizza_img" onClick={handleShowModel} > */}
+
+        {/* {
+
+          pizzas?.map(pizza =>{
+
+
+          })
+        } */}
         <div className="pizza_img" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onClick={() =>handleShowModel(pizza?._id)} >
           <img
             src={pizza?.image}
