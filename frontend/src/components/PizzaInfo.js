@@ -22,10 +22,20 @@ const PizzaInfo = ({ pizza ,index}) => {
   
 
   const handleCartBtn = () =>{
+
+    const selectedPizza = {
+        ...pizza,
+        quantity,
+        varient,
+        price:pizza?.prices[0][varient] * quantity
+    }
       // localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,pizza])))
-      localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,pizza])))
-       dispatch(setCartItems([...cartItems,pizza]));
-      console.log("setcart",setCartItems(pizza))
+      localStorage.setItem("cartItems",JSON.stringify(setCartItems([...cartItems,selectedPizza])))
+      //  dispatch(setCartItems([...cartItems,pizza]));
+       dispatch(setCartItems([...cartItems,selectedPizza]));
+      // console.log("setcart",setCartItems(pizza))
+      console.log("setcart",setCartItems(pizza,quantity,varient))
+      console.log("selectedpizza",selectedPizza)
       // console.log("setCart",setCartItems(setCart))
       // console.log("setCart2",setCart)
       // console.log("setcart",setCartItems)
@@ -67,10 +77,18 @@ const PizzaInfo = ({ pizza ,index}) => {
               <select
                 className="form-select border border-2 border-danger"
                 aria-label="Small select example"
+                value={varient}
                 onChange={(e) => setVarient(e.target.value)}
+                
+            // onChange={(e) => {
+            //   setVarient((prev) => ({
+            //     ...prev,
+            //     varient: e.target.value,
+            //   }));
+            // }}
               >
                 {pizza?.varients?.map((varient) => (
-                  <option value={varient}>{varient}</option>
+                  <option key={varient}>{varient}</option>
                 ))}
               </select>
             </div>
@@ -80,6 +98,7 @@ const PizzaInfo = ({ pizza ,index}) => {
               <select
                 className="form-select border border-2 border-danger"
                 aria-label="Small select example"
+                value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               >
                 {pizza?.quantity?.map((quantity, index) => (
@@ -96,7 +115,7 @@ const PizzaInfo = ({ pizza ,index}) => {
               <h5>Rs.{pizza?.prices[0][varient] * quantity}</h5>
             </div>
             <div className="col">
-              <button type="button" class="btn btn-danger" onClick={() => handleCartBtn()}>
+              <button type="button" class="btn btn-danger" onClick={handleCartBtn}>
                 Add To Cart
               </button>
             </div>
